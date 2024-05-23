@@ -5,7 +5,7 @@ sudo apt update &&
 sudo apt upgrade &&
 
 # install packages that aren't in the base cloud image install
-sudo apt install sudo git gh nmap finger curl neofetch glances lshw net-tools ca-certificates gnupg fonts-powerline parted htop \ 
+sudo apt install sudo git gh nmap finger curl neofetch glances lshw net-tools ca-certificates gnupg fonts-powerline parted htop \
  hwinfo lynx mtr nfs-common tmux whois gnupg2 unzip cloud-guest-utils lsof zsh zplug netcat-openbsd dnsutils qemu-guest-agent -y &&
 
 # enable qemu
