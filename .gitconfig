@@ -1,0 +1,33 @@
+[user]
+	name = Scott Taylor
+	email = scott@ipv6tech.net
+[core]
+  editor = code --wait
+	excludesfile = $HOME/.gitignore_global
+[diff]
+  tool = vscode
+[difftool "vscode"]
+  cmd = code --wait --diff $LOCAL $REMOTE
+[merge]
+  tool = vscode
+[mergetool "vscode"]
+  cmd = code --wait $MERGED
+[alias]
+	st = status -sb
+	p = push
+	ll = log --oneline
+	last = log -1 HEAD --stat
+	cm = commit -m
+	d = diff
+	dv = difftool -t vscode -y
+	gl = config --global -l
+	graph = log --graph --oneline --abbrev-commit --decorate  --all
+	ten = tag --sort version:refname -n10 -n
+	remotes = ls-remote --heads
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[init]
+	defaultBranch = main
