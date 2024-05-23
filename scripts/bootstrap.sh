@@ -28,6 +28,10 @@ sudo chmod 644 /etc/apt/keyrings/gierens.gpg /etc/apt/sources.list.d/gierens.lis
 sudo apt update &&
 sudo apt install -y eza docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin &&
 
+# install zsh config
+git clone https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh &&
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/.powerlevel10k &&
+
 # Clone dotfiles repo
 git clone --bare https://github.com/ipv6tech/.dotfiles.git $HOME/.dotfiles &&
 
@@ -51,9 +55,5 @@ fi
 dotfiles checkout
 dotfiles config status.showUntrackedFiles no
 
-# install zsh config
-git clone https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh &&
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/.powerlevel10k &&
-
 # change shell
-chsh -s $(which zsh)
+#chsh -s $(which zsh)
