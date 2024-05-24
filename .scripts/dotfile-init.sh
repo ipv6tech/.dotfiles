@@ -34,16 +34,11 @@ sudo tee /etc/apt/sources.list.d/hashicorp.list
 sudo apt update &&
 sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin terraform tofu &&
 
-# enable qemu
-# sudo systemctl enable qemu-guest-agent &&
-# sudo systemctl start qemu-guest-agent &&
-
 # clone zsh config
 git clone https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh &&
 # powerlevel10k theme
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k &&
 # syntax-highlighting
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" &&
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting &&
 # installs zsh-autosuggestions plugin
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions &&
