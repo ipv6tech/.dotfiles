@@ -5,34 +5,44 @@ sudo apt update &&
 sudo apt upgrade &&
 
 # install packages that aren't in the base cloud image install
-sudo apt install sudo git gh nmap finger curl neofetch glances lshw net-tools ca-certificates gnupg fonts-powerline parted htop \
- hwinfo lynx mtr nfs-common tmux whois gnupg2 unzip cloud-guest-utils lsof zsh zplug netcat-openbsd dnsutils qemu-guest-agent -y &&
+sudo apt install git gh nmap finger curl neofetch glances lshw net-tools ca-certificates gnupg fonts-powerline parted htop \
+ hwinfo lynx mtr nfs-common tmux whois gnupg2 unzip cloud-guest-utils lsof zsh lsd netcat-openbsd dnsutils qemu-guest-agent -y &&
+
+# Docker
+sudo install -m 0755 -d /etc/apt/keyrings &&
+echo "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian \
+ "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null &&
+curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg &&
+sudo chmod a+r /etc/apt/keyrings/docker.gpg &&
+
+# OpenTofu
+curl -fsSL https://get.opentofu.org/opentofu.gpg | sudo tee /etc/apt/keyrings/opentofu.gpg >/dev/null
+curl -fsSL https://packages.opentofu.org/opentofu/tofu/gpgkey | sudo gpg --no-tty --batch --dearmor -o /etc/apt/keyrings/opentofu-repo.gpg >/dev/null
+sudo chmod a+r /etc/apt/keyrings/opentofu.gpg /etc/apt/keyrings/opentofu-repo.gpg
+echo "deb [signed-by=/etc/apt/keyrings/opentofu.gpg,/etc/apt/keyrings/opentofu-repo.gpg] https://packages.opentofu.org/opentofu/tofu/any/ any main
+deb-src [signed-by=/etc/apt/keyrings/opentofu.gpg,/etc/apt/keyrings/opentofu-repo.gpg] https://packages.opentofu.org/opentofu/tofu/any/ any main" | \
+sudo tee /etc/apt/sources.list.d/opentofu.list > /dev/null
+sudo chmod a+r /etc/apt/sources.list.d/opentofu.list
+
+# Terraform
+wget -O- https://apt.releases.hashicorp.com/gpg | gpg --dearmor | sudo tee /usr/share/keyrings/hashicorp-archive-keyring.gpg > /dev/null
+echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | \
+sudo tee /etc/apt/sources.list.d/hashicorp.list
+
+# install packages with new sources above
+sudo apt update &&
+sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin terraform tofu &&
 
 # enable qemu
 # sudo systemctl enable qemu-guest-agent &&
 # sudo systemctl start qemu-guest-agent &&
 
-# add Docker and Eza repo to apt sources
-sudo echo "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian \
- "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null &&
-sudo echo "deb [signed-by=/etc/apt/keyrings/gierens.gpg] http://deb.gierens.de stable main" | sudo tee /etc/apt/sources.list.d/gierens.list &&
-
-# Download and set permissions for the Docker and Eza gpg keys
-sudo install -m 0755 -d /etc/apt/keyrings &&
-curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg &&
-curl -fsSL https://raw.githubusercontent.com/eza-community/eza/main/deb.asc | sudo gpg --dearmor -o /etc/apt/keyrings/gierens.gpg &&
-sudo chmod a+r /etc/apt/keyrings/docker.gpg &&
-sudo chmod 644 /etc/apt/keyrings/gierens.gpg /etc/apt/sources.list.d/gierens.list &&
-
-# Update apt and install Docker and Eza
-sudo apt update &&
-sudo apt install -y eza docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin &&
-
-# install zsh config
+# clone zsh config
 git clone https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh &&
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/.powerlevel10k &&
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k &&
+sed -i -e 's!ZSH_THEME="robbyrussell"!ZSH_THEME="powerlevel10k/powerlevel10k"!g' ~/.zshrc
 
-# Clone dotfiles repo
+# clone dotfiles repo
 git clone --bare https://github.com/ipv6tech/.dotfiles.git $HOME/.dotfiles &&
 
 # define config alias locally since the dotfiles
@@ -55,5 +65,5 @@ fi
 dotfiles checkout
 dotfiles config status.showUntrackedFiles no
 
-# change shell
-#chsh -s $(which zsh)
+# change shell to zsh
+sudo chsh -s $(which zsh) $(whoami)
