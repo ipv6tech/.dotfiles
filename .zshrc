@@ -87,7 +87,6 @@ plugins=(vscode)
 plugins=(thefuck)
 plugins=(nmap)
 plugins=(tmux)
-plugins=(sudo)
 plugins=(iterm2)
 
 source $ZSH/oh-my-zsh.sh
