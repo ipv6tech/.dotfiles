@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# curl https://raw.githubusercontent.com/ipv6tech/.dotfiles/main/.scripts/dotfiles-init.sh | bash
+# curl https://raw.githubusercontent.com/ipv6tech/.dotfiles/main/.scripts/dotfile-init.sh | bash
 
 # base system update/upgrade
 sudo apt update &&
