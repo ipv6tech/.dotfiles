@@ -40,8 +40,16 @@ sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin d
 
 # clone zsh config
 git clone https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh &&
+# powerlevel10k theme
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k &&
-sed -i -e 's!ZSH_THEME="robbyrussell"!ZSH_THEME="powerlevel10k/powerlevel10k"!g' ~/.zshrc
+sed -i -e 's!ZSH_THEME="robbyrussell"!ZSH_THEME="powerlevel10k/powerlevel10k"!g' ~/.zshrc &&
+# syntax-highlighting
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" &&
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting &&
+# installs zsh-autosuggestions plugin
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+# grabs the zsh-autosuggestions and adds it in .zsh
+git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions
 
 # clone dotfiles repo
 git clone --bare https://github.com/ipv6tech/.dotfiles.git $HOME/.dotfiles &&
@@ -68,3 +76,4 @@ dotfiles config status.showUntrackedFiles no
 
 # change shell to zsh
 sudo chsh -s $(which zsh) $(whoami)
+source ~/.zshrc
