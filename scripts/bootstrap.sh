@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# curl https://raw.githubusercontent.com/ipv6tech/.dotfiles/main/scripts/bootstrap.sh | bash
 
 # base system update/upgrade
 sudo apt update &&
