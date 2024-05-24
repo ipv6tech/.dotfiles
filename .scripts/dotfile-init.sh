@@ -42,7 +42,6 @@ sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin d
 git clone https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh &&
 # powerlevel10k theme
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k &&
-sed -i -e 's!ZSH_THEME="robbyrussell"!ZSH_THEME="powerlevel10k/powerlevel10k"!g' ~/.zshrc &&
 # syntax-highlighting
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" &&
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting &&
@@ -73,6 +72,9 @@ fi
 # checkout dotfiles from repo
 dotfiles checkout
 dotfiles config status.showUntrackedFiles no
+
+# change zsh theme
+sed -i -e 's!ZSH_THEME="robbyrussell"!ZSH_THEME="powerlevel10k/powerlevel10k"!g' ~/.zshrc &&
 
 # change shell to zsh
 sudo chsh -s $(which zsh) $(whoami)
