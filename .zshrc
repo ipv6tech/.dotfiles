@@ -8,21 +8,12 @@ fi
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
-# Path to your oh-my-zsh installation.
+# Path to your oh-my-zsh installation
 export ZSH="$HOME/.oh-my-zsh"
 
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
+# Set name of the oh-my-zsh theme to load
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-#ZSH_THEME="powerlevel10k/powerlevel10k-1"
 ZSH_THEME="powerlevel10k/powerlevel10k"
-
-# Set list of themes to pick from when loading at random
-# Setting this variable when ZSH_THEME=random will cause zsh to load
-# a theme from this variable instead of looking in $ZSH/themes/
-# If set to an empty array, this variable will have no effect.
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -100,21 +91,46 @@ source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
+# Check which OS and package managers are used on machine and used for setup
+if [[ $(uname) = 'Linux' ]]; then
+    IS_LINUX=1
+fi
 
-alias k=kubectl
-alias h=helm
-#alias tf=terraform
-#alias tfp="terraform plan"
-#alias tfa="terraform apply -auto-approve"
-#alias tfd="terraform destroy -auto-approve"
+if [[ $(uname) = 'Darwin' ]]; then
+    IS_MAC=1
+fi
+
+if [[ -x `which brew` ]]; then
+    HAS_BREW=1
+fi
+
+if [[ -x `which apt-get` ]]; then
+    HAS_APT=1
+fi
+
+if [[ -x `which yum` ]]; then
+    HAS_YUM=1
+fi
+
+# General Aliases for any machine and OS
+# For a full list of active aliases, run `alias`
+alias eip="curl ifconfig.me"
 alias wtr="curl wttr.in/South+Windsor"
 alias ll="lsd -al --group-directories-first"
 alias ls="lsd -al"
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+
+# MacOS specific
+if [[ $IS_MAC -eq 1 ]]; then
+  alias ql='qlmanage -p 2>/dev/null' # OS X Quick Look
+  alias oo='open .' # open current directory in OS X Finder
+fi
+
+# Debian specific
+if [[ $IS_LINUX -eq 1 ]]; then
+  alias k=kubectl
+  alias h=helm
+fi
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
