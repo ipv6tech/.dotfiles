@@ -976,7 +976,7 @@
 #  typeset -g POWERLEVEL9K_CONTEXT_FOREGROUND=3
 #  typeset -g POWERLEVEL9K_CONTEXT_BACKGROUND=0
   typeset -g POWERLEVEL9K_CONTEXT_FOREGROUND=255
-  typeset -g POWERLEVEL9K_CONTEXT_BACKGROUND=33
+  typeset -g POWERLEVEL9K_CONTEXT_BACKGROUND=32
 
   # Context format when running with privileges: user@hostname.
   typeset -g POWERLEVEL9K_CONTEXT_ROOT_TEMPLATE='%n@%m'
