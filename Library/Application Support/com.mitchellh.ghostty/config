@@ -1,0 +1,39 @@
+#Dark themes I like are: Dark Modern, Dark+, Chalk, iTerm2 Default, MaterialDarker, GitHub Dark
+# Light themes I like are: GitHub
+
+#theme = light:GitHub,dark:MaterialDarker
+theme = MaterialDarker
+
+font-family = MesloLGS NF
+font-size = 15
+font-family-bold = MesloLGS NF Bold
+
+background-opacity = 0.8
+background-blur-radius = 15
+
+#shell-integration = zsh
+
+quit-after-last-window-closed = true
+confirm-close-surface = false
+
+clipboard-read = allow
+clipboard-write = allow
+clipboard-trim-trailing-spaces = true
+
+macos-titlebar-style = tabs
+
+auto-update = check
+
+window-height = 74
+window-width = 180
+window-inherit-working-directory = true
+window-save-state = always
+
+mouse-hide-while-typing = true
+
+#window-padding-x = 10
+#window-padding-y = 10
+
+keybind = global:ctrl+escape=toggle_quick_terminal
+quick-terminal-position = right
+quick-terminal-screen = macos-menu-bar
